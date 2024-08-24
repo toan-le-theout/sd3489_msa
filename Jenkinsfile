@@ -12,7 +12,7 @@ pipeline {
         stage('Docker Build Frontend') {
             agent any
             steps {
-                withAWS(region:'ap-southeast-2',credentials:'aws-credential') {
+                withAWS(region:'ap-southeast-2',credentials:'aws-practical-credential') {
                     sh "aws ecr get-login-password --region ${REGION} | docker login --username AWS --password-stdin ${ECR_URI}"
                     sh "docker build -t ${FRONTEND_APP}:${IMAGE_TAG} src/frontend/"
                     sh "docker tag ${FRONTEND_APP}:${IMAGE_TAG} ${ECR_URI}/${FRONTEND_APP}:latest"
@@ -23,7 +23,7 @@ pipeline {
         stage('Docker Build Backend') {
             agent any
             steps {
-                withAWS(region:'ap-southeast-2',credentials:'aws-credential') {
+                withAWS(region:'ap-southeast-2',credentials:'aws-practical-credential') {
                     sh "aws ecr get-login-password --region ${REGION} | docker login --username AWS --password-stdin ${ECR_URI}"
                     sh "docker build -t ${BACKEND_APP}:${IMAGE_TAG} src/backend/"
                     sh "docker tag ${BACKEND_APP}:${IMAGE_TAG} ${ECR_URI}/${BACKEND_APP}:latest"
@@ -35,7 +35,7 @@ pipeline {
         stage('Deploy k8s') {
             agent any
             steps {
-                withAWS(region: 'ap-southeast-2', credentials: 'aws-credential') {
+                withAWS(region: 'ap-southeast-2', credentials: 'aws-practical-credential') {
                     sh "aws eks update-kubeconfig --name sd3489-eks"
                     sh "kubectl apply -f k8s/aws/mongodb.yaml"
                     sh "kubectl apply -f k8s/aws/backend.yaml"
