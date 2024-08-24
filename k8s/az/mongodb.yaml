@@ -3,7 +3,7 @@ apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
   name: mongo-sc
-provisioner: kubernetes.io/azure-desk
+provisioner: kubernetes.io/azure-disk
 parameters:
   storageaccounttype: Standard_LRS
 volumeBindingMode: WaitForFirstConsumer
