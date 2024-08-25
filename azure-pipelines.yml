@@ -11,6 +11,7 @@ variables:
   K8S_AZURE_DIR: $(System.DefaultWorkingDirectory)/k8s/azure
 # Pool build
 pool:
+  name: 'default'
   vmImage: "ubuntu-latest"
 
 stages:
